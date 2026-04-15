@@ -1,6 +1,8 @@
 # Análisis de Flujo Vehicular con Visión por Computadora (YOLOv8)
 Este repositorio contiene un sistema automatizado para el conteo y análisis direccional de tráfico vehicular en intersecciones y glorietas. El núcleo del proyecto utiliza el modelo de detección de objetos YOLOv8 (entrenado/ajustado) en conjunto con OpenCV para rastrear vehículos frame por frame, calcular sus trayectorias y exportar métricas de flujo (entradas y salidas) a formatos de datos estructurados (CSV) y video renderizado.
 
+![Video de Glorieta](Video-Salida-1.gif)
+
 ## Estructura del Proyecto
 El sistema está diseñado para procesar grabaciones de largo aliento (hasta 24 horas continuas) mediante la segmentación de videos. 
 
