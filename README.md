@@ -1,38 +1,76 @@
-# Análisis de Flujo Vehicular con Visión por Computadora (YOLOv8)
-Este repositorio contiene un sistema automatizado para el conteo y análisis direccional de tráfico vehicular en intersecciones y glorietas. El núcleo del proyecto utiliza el modelo de detección de objetos YOLOv8 (entrenado/ajustado) en conjunto con OpenCV para rastrear vehículos frame por frame, calcular sus trayectorias y exportar métricas de flujo (entradas y salidas) a formatos de datos estructurados (CSV) y video renderizado.
+# 🚦 Sistema de Análisis de Flujo Vehicular con Inteligencia Artificial (YOLOv8)
+
+Este repositorio contiene una arquitectura automatizada de visión por computadora diseñada para el conteo, clasificación y análisis direccional de tráfico vehicular. 
+
+A diferencia de los contadores de pantalla tradicionales, este sistema no solo detecta objetos, sino que **reconstruye trayectorias completas**, determinando el origen y destino exacto de cada vehículo dentro de una red vial compleja (como glorietas o intersecciones de múltiples carriles). Está diseñado para procesar grabaciones de largo aliento (ej. 24 horas continuas) y extraer datos crudos escalables para la toma de decisiones en ingeniería de tránsito.
 
 <div align="center">
-  <img src="Video-Salida-1.gif" width="400" />
+  <img src="Video-Salida-1.gif" width="600" alt="Demostración del Tracking de Vehículos"/>
 </div>
 
-## Estructura del Proyecto
-El sistema está diseñado para procesar grabaciones de largo aliento (hasta 24 horas continuas) mediante la segmentación de videos. 
+## 📌 Características Principales
+* **Tracking Direccional Avanzado:** Seguimiento continuo de vehículos asignando un ID único (Tracking por Centroides) desde su punto de inserción hasta su salida de la intersección.
+* **Corrección de Perspectiva (Interpolación Aérea):** Transforma la visión inclinada de cámaras de vigilancia convencionales a un plano superior (cenital) utilizando referencias satelitales (ej. Google Earth), permitiendo predecir trayectorias con precisión geométrica.
+* **Procesamiento de Alto Volumen:** Arquitectura optimizada para ingestar grabaciones de 24 horas continuas, superando las limitaciones de memoria al segmentar y analizar flujos de video bajo diferentes condiciones de iluminación (diurnas y nocturnas).
+* **Exportación de Datos Estructurados:** Generación automática de reportes cinemáticos y volumétricos en formato CSV para su posterior evaluación estadística.
 
-## La Lógica de Rastreo: Perspectiva Cenital y Coordenadas
-A diferencia de un simple conteo de objetos en pantalla, este sistema requiere saber de dónde viene y hacia dónde va cada vehículo. Para lograrlo sin depender de hardware de radar, el código emplea un enfoque geométrico basado en el lienzo del video:
+---
 
-Imagen Base (Plano Cenital): Se extrae un frame limpio o se utiliza una representación cenital (vista desde arriba) de la glorieta. Esta imagen sirve como el mapa de fondo estático.
+## 📊 Estudio de Caso Real y Validación (Prueba de 24 Horas)
 
-Regiones de Interés (ROIs) por Píxeles: Sobre esta imagen base, se mapean polígonos virtuales utilizando arreglos de coordenadas (X, Y) en píxeles. Cada polígono representa físicamente un carril de entrada o de salida de la glorieta.
+Para validar la robustez del sistema en un entorno empírico, la herramienta se implementó en un escenario de alta demanda: una glorieta urbana de flujo continuo. Se realizó el procesamiento de una **grabación ininterrumpida de 24 horas**, permitiendo evaluar el comportamiento del tráfico real.
 
-Tracking por Centroides: Cuando YOLO detecta un coche, el código calcula el centro geométrico de su bounding box. Si el centroide del vehículo con el ID #24 cruza las coordenadas en píxeles de la "Entrada Norte" y segundos después cruza las coordenadas de la "Salida Sur", el sistema registra un recorrido completo y lo suma al flujo.
+### Hallazgos del Reporte Analítico
+El procesamiento de los datos estructurados arrojó las siguientes métricas clave de la intersección:
+1. **Identificación de Horas Pico:** Se aislaron visual y estadísticamente las ventanas de máxima saturación vial, correlacionadas directamente con los horarios de entrada/salida laboral y escolar.
+2. **Mapeo de Cuellos de Botella:** Al analizar los tiempos de recorrido de los vehículos (diferencia entre el timestamp de entrada y salida), se localizaron los nodos exactos donde el flujo pierde velocidad crítica.
+3. **Comportamiento por Carril:** El sistema logró clasificar qué accesos aportan la mayor carga vehicular y cuáles salidas presentan saturación por falta de desfogue.
 
-## Requisitos Técnicos
-Para el procesamiento eficiente (especialmente para inferencia rápida del modelo de Deep Learning), se recomienda el siguiente entorno:  
--GPU: Tarjeta gráfica compatible con CUDA (ej. serie RTX) para acelerar el procesamiento de YOLOv8.  
--Software: Python 3.8 o superior.  
+### Propuestas de Mejora Vial (Escalabilidad del Sistema)
+Con base en la información extraída por esta herramienta, se pueden justificar propuestas de infraestructura empíricas, tales como:
+* **Rediseño de Geometría Vial:** Modificación de radios de giro y delimitación de carriles de aceleración/desaceleración en los accesos más saturados.
+* **Implementación de Semáforos Inteligentes:** Uso de los datos volumétricos para calibrar los ciclos de semaforización en los nodos adyacentes a la glorieta.
+* **Reingeniería de Flujos:** Prohibición de ciertas maniobras de entrecruzamiento que el sistema identificó como causantes de las caídas de velocidad.
 
-## Librerías de Python:
--ultralytics: Implementación oficial para la inferencia y tracking con YOLOv8.  
--opencv-python (cv2): Procesamiento de imágenes, lectura de video, dibujo de polígonos y renderizado en tiempo real.  
--numpy: Manejo de las matrices de píxeles y operaciones matemáticas de coordenadas.  
--pandas: (Opcional) Para la estructuración y exportación limpia de datos al archivo CSV.  
+> **Nota:** Aunque este reporte se basa en una glorieta específica, la lógica de regiones de interés (ROIs) basada en coordenadas de píxeles permite que **este código sea desplegado en cualquier otra intersección o ciudad** ajustando únicamente el mapa base.
 
-## Configuración y Personalización
-Antes de ejecutar el script, puedes ajustar los parámetros clave en la sección de constantes del código fuente para adaptarlo a cualquier otra intersección:
+---
 
-CONFIDENCE_THRESHOLD: (ej. 0.5) Filtra falsos positivos. Solo toma en cuenta detecciones con una certeza mayor a este porcentaje.
+## ⚙️ Arquitectura del Sistema y Lógica de Rastreo
 
-POLIGONOS_ENTRADA / POLIGONOS_SALIDA: Arreglos de NumPy con las coordenadas [x, y] que definen las líneas invisibles en la calle. Deben ajustarse si la cámara cambia de perspectiva.
+Para lograr el rastreo direccional sin depender de hardware de radar, el algoritmo emplea un enfoque geométrico basado en el lienzo del video:
 
-RUTAS_ARCHIVOS: Las variables VIDEO_PATH, MODEL_PATH, etc., utilizan rutas relativas para garantizar la portabilidad del repositorio.
+1. **Plano Cenital y Corrección:** Se extrae un frame base de la intersección y se le aplica la corrección de perspectiva. Este mapa estático es el lienzo de trabajo.
+2. **Regiones de Interés (ROIs) Dinámicas:** Sobre el lienzo, se mapean polígonos virtuales utilizando arreglos de coordenadas `(X, Y)`. Cada polígono representa físicamente un carril de entrada o de salida.
+3. **Lógica de Cruce de Polígonos:** Cuando YOLOv8 detecta un automóvil, se calcula el centro geométrico (centroide) de su *bounding box*. Si el vehículo con el ID `#104` cruza las coordenadas del arreglo `Entrada_Norte` y posteriormente las del arreglo `Salida_Sur`, el sistema consolida el viaje y lo registra en la matriz de flujo.
+
+---
+
+## 🛠️ Requisitos Técnicos y Entorno
+
+Para garantizar un procesamiento eficiente (especialmente para la inferencia rápida del modelo de Deep Learning en videos prolongados), se requiere:
+
+* **Hardware:** Se recomienda fuertemente una GPU compatible con tecnología CUDA (ej. serie NVIDIA RTX) para la aceleración por hardware de YOLOv8.
+* **Entorno:** Python 3.8 o superior.
+
+### Dependencias Principales
+* `ultralytics`: Inferencia y tracking oficial del modelo YOLOv8.
+* `opencv-python (cv2)`: Procesamiento de frames, lectura de video, dibujo matemático de polígonos y renderizado visual.
+* `numpy`: Manejo de matrices de píxeles y operaciones vectoriales para las coordenadas de las ROIs.
+* `pandas`: Estructuración, limpieza y exportación del flujo de datos al archivo CSV.
+
+---
+
+## 🚀 Configuración y Uso
+
+El sistema está diseñado para ser altamente parametrizable. Antes de ejecutar el script principal (`PROYECTO_YOLO`), ajusta las variables de entorno en la sección de constantes:
+
+* `CONFIDENCE_THRESHOLD`: (Ej. `0.5`). Define la sensibilidad de la red neuronal. Un valor más alto reduce los falsos positivos bajo condiciones de poca luz.
+* `POLIGONOS_ENTRADA` / `POLIGONOS_SALIDA`: Arreglos de NumPy con las coordenadas `[x, y]`. Deben recalibrarse si se procesa un video con una perspectiva de cámara distinta.
+* **Rutas Relativas:** Asegúrate de que las variables `VIDEO_PATH` y `MODEL_PATH` apunten a los directorios correctos. El repositorio utiliza rutas relativas para su fácil portabilidad.
+
+---
+
+## 🗺️ Roadmap y Trabajo Futuro
+- [ ] **Simulación Macroscópica:** Integración de los archivos CSV resultantes como base de datos empírica para alimentar simulaciones en **SUMO (Simulation of Urban MObility)**, permitiendo probar las propuestas de rediseño vial en un entorno virtual controlado.
+- [ ] Interfaz gráfica ligera para la calibración visual (drag & drop) de los polígonos de entrada y salida.
