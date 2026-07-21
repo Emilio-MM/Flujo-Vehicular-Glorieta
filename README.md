@@ -5,7 +5,7 @@ Este repositorio contiene una arquitectura automatizada de visión por computado
 A diferencia de los contadores de pantalla tradicionales, este sistema no solo detecta objetos, sino que **reconstruye trayectorias completas**, determinando el origen y destino exacto de cada vehículo dentro de una red vial compleja (específicamente en glorietas). Está diseñado para extraer datos crudos escalables para la toma de decisiones en ingeniería de tránsito.
 
 <div align="center">
-  <img src="Video-Procesado.gif" width="800" alt="Demostración del Tracking de Vehículos"/>
+  <img src="data/Video-Procesado.gif" width="800" alt="Demostración del Tracking de Vehículos"/>
 </div>
 
 ## Características Principales
