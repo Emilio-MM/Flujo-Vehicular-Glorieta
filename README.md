@@ -1,4 +1,4 @@
-# 🚦 Sistema de Análisis de Flujo Vehicular con Inteligencia Artificial (YOLOv8)
+# Sistema de Análisis de Flujo Vehicular con Inteligencia Artificial (YOLOv8)
 
 Este repositorio contiene una arquitectura automatizada de visión por computadora diseñada para el conteo, clasificación y análisis direccional de tráfico vehicular. 
 
