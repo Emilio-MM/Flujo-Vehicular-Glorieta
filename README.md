@@ -1,4 +1,4 @@
-##Sistema de Análisis de Flujo Vehicular con Inteligencia Artificial (YOLOv8)
+## Sistema de Análisis de Flujo Vehicular con Inteligencia Artificial (YOLOv8)
 
 Este repositorio contiene una arquitectura automatizada de visión por computadora diseñada para el conteo, clasificación y análisis direccional de tráfico vehicular. 
 
@@ -10,7 +10,7 @@ A diferencia de los contadores de pantalla tradicionales, este sistema no solo d
 
 ---
 
-##Estructura del Repositorio
+##  Estructura del Repositorio
 
 El proyecto está modularizado en cuatro directorios principales para facilitar su comprensión, ejecución y análisis empírico:
 
@@ -21,7 +21,7 @@ El proyecto está modularizado en cuatro directorios principales para facilitar 
 
 ---
 
-##Características Principales
+## Características Principales
 * **Tracking Direccional Avanzado:** Seguimiento continuo de vehículos asignando un ID único desde su punto de inserción hasta su salida de la intersección.
 * **Corrección de Perspectiva (Interpolación Aérea):** Transforma la visión inclinada de cámaras de vigilancia convencionales a un plano superior (cenital) utilizando referencias satelitales (ej. Google Earth), permitiendo predecir trayectorias con precisión geométrica.
 * **Procesamiento de Alto Volumen:** Arquitectura optimizada para ingestar grabaciones de 24 horas continuas, superando las limitaciones de memoria al segmentar y analizar flujos de video bajo diferentes condiciones de iluminación (diurnas y nocturnas).
