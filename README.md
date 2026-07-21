@@ -28,7 +28,7 @@ El proyecto está modularizado en cuatro directorios principales para facilitar 
 * **Gemelo Digital y Simulación (SUMO):** Capacidad para trasladar los datos extraídos por YOLO a un entorno de simulación virtual. El sistema genera escenarios donde los vehículos navegan un mapa predefinido siguiendo las rutas empíricas. Al finalizar, el software arroja métricas precisas estructuradas en XML (tiempos de viaje, tiempos de espera), permitiendo validar rediseños viales y justificar la toma de decisiones sin afectar la infraestructura real.
 
 <div align="center">
-  <img src="data/SUMO-Simulacion.gif" width="800" alt="Simulacion en SUMO"/>
+  <img src="data/SUMO-Simulacion.gif" width="500" alt="Simulacion en SUMO"/>
 </div>
 ---
 
