@@ -63,7 +63,7 @@ Para garantizar un procesamiento eficiente (especialmente para la inferencia rá
 
 ## Configuración y Uso
 
-El sistema está diseñado para ser altamente parametrizable. Antes de ejecutar el script principal (`PROYECTO_YOLO`), ajusta las variables de entorno en la sección de constantes:
+El sistema está diseñado para ser altamente parametrizable. Antes de ejecutar el script principal (`PROYECTO-YOLO-GLORIETA`), ajusta las variables de entorno en la sección de constantes:
 
 * `CONFIDENCE_THRESHOLD`: (Ej. `0.5`). Define la sensibilidad de la red neuronal. Un valor más alto reduce los falsos positivos bajo condiciones de poca luz.
 * `POLIGONOS_ENTRADA` / `POLIGONOS_SALIDA`: Arreglos de NumPy con las coordenadas `[x, y]`. Deben recalibrarse si se procesa un video con una perspectiva de cámara distinta.
