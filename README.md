@@ -26,6 +26,10 @@ El proyecto está modularizado en cuatro directorios principales para facilitar 
 * **Corrección de Perspectiva (Interpolación Aérea):** Transforma la visión inclinada de cámaras de vigilancia convencionales a un plano superior (cenital) utilizando referencias satelitales (ej. Google Earth), permitiendo predecir trayectorias con precisión geométrica.
 * **Procesamiento de Alto Volumen:** Arquitectura optimizada para ingestar grabaciones de 24 horas continuas, superando las limitaciones de memoria al segmentar y analizar flujos de video bajo diferentes condiciones de iluminación (diurnas y nocturnas).
 * **Gemelo Digital y Simulación (SUMO):** Capacidad para trasladar los datos extraídos por YOLO a un entorno de simulación virtual. El sistema genera escenarios donde los vehículos navegan un mapa predefinido siguiendo las rutas empíricas. Al finalizar, el software arroja métricas precisas estructuradas en XML (tiempos de viaje, tiempos de espera), permitiendo validar rediseños viales y justificar la toma de decisiones sin afectar la infraestructura real.
+
+<div align="center">
+  <img src="data/SUMO-Simulacion.gif" width="800" alt="Simulacion en SUMO"/>
+</div>
 ---
 
 ## Estudio de Caso Real y Validación (Prueba de 24 Horas)
